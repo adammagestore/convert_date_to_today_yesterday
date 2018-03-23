@@ -51,17 +51,51 @@ convertDateForIos(date) {
         return str;
     }
 
-    formatDateToString(value){
+    /**
+     * convert date time to date string
+     * @param value
+     * @return {string}
+     */
+    formatDateToString(value) {
         let date = new Date(value);
         let dd: any = date.getDate();
-        let mm: any = date.getMonth()+1; //January is 0!
-
+        let mm: any = date.getMonth() + 1; //January is 0!
         let yyyy: any = date.getFullYear();
-        if(dd<10){
-            dd = '0' + dd;
-        } 
-        if(mm<10){
-            mm = '0' + mm;
-        } 
-        return dd+'/'+mm+'/'+yyyy;
+        dd = this.addZero(dd);
+        mm = this.addZero(mm);
+        return dd + '/' + mm + '/' + yyyy;
+    }
+
+    /**
+     * Add number zero (0) before number if < 10
+     */
+    addZero(number) {
+        if (number < 10) {
+            number = "0" + number;
+        }
+        return number;
+    }
+
+    /**
+     * convert date time to date time string
+     * @param value
+     * @return {string}
+     */
+    formatDateTimeToString(value){
+        let date = this.convertDateForIos(value);
+        // let date = new Date(value);
+        let dd: any = date.getDate();
+        let mm: any = date.getMonth() + 1; //January is 0!
+        let yyyy: any = date.getFullYear();
+        let hh: any = date.getHours();
+        let min: any = date.getMinutes();
+        let ss: any = date.getSeconds();
+
+        dd = this.addZero(dd);
+        mm = this.addZero(mm);
+        hh = this.addZero(hh);
+        min = this.addZero(min);
+        ss = this.addZero(ss);
+
+        return dd + '/' + mm + '/' + yyyy + " " + hh + ":" + min + ":" + ss;
     }
